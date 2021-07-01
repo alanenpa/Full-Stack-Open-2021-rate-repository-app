@@ -34,7 +34,7 @@ const FormikTextInput = ({ name, ...props }) => {
         error={showError}
         {...props}
       />
-      {console.log(props)}
+      
       {showError && <Text style={styles.errorText}>{meta.error}</Text>}
     </>
   );
