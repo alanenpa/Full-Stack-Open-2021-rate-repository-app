@@ -13,7 +13,7 @@ const TextInput = ({ style, error, ...props }) => {
     error && styles.redBorder
   ];
 
-  return <NativeTextInput style={textInputStyle} {...props} />;
+  return <NativeTextInput style={textInputStyle} {...props} testID="input" />;
 };
 
 export default TextInput;

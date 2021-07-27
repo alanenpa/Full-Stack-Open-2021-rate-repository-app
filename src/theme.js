@@ -22,6 +22,23 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+  formContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    padding: 5
+  },
+  submitBtn: {
+    borderWidth: 1,
+    borderRadius: 2,
+    margin: 4,
+    padding: 13,
+    backgroundColor: 'blue'
+  },
+  submitBtnText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
 };
 
 export default theme;

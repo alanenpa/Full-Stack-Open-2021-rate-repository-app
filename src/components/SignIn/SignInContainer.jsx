@@ -1,9 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
-import SignInForm from './SignInForm';
-import useSignIn from './../hooks/useSignIn';
+import { SignInForm } from './SignInForm';
 
 const initialValues = {
   username: '',
@@ -19,19 +17,7 @@ const validationSchema = yup.object().shape({
     .required('Password is required')
 });
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      await signIn({ username, password });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+const SignInContainer = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -43,4 +29,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInContainer;

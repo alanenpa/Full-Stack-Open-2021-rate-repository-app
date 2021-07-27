@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, Pressable } from 'react-native';
 import Text from '../components/Text';
 import theme from '../theme';
+import { useHistory } from 'react-router-native';
 
-const roundToThousands = (number) => {
+export const roundToThousands = (number) => {
   if (number >= 1000) {
     number = (number.toPrecision(2)).substr(0, 3) + 'k';
   }
@@ -11,43 +12,50 @@ const roundToThousands = (number) => {
 };
 
 const RepositoryItem = ({ item }) => {
+  const history = useHistory();
   const stargazersCount = roundToThousands(item.stargazersCount);
   const forksCount = roundToThousands(item.forksCount);
 
+  const handleClick = () => {
+    history.push(`repository/${item.id}`);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          style={styles.avatar}
-          source={{ uri: item.ownerAvatarUrl }}
-        />
-        <View style={styles.headerTexts}>
-          <Text style={styles.headerTextItem} fontWeight="bold">{item.fullName}</Text>
-          <Text style={styles.headerTextItem}>{item.description}</Text>
-          <View style={styles.languageItemParent}>
-            <Text style={styles.language}>{item.language}</Text>
+    <Pressable onPress={handleClick}>
+      <View style={styles.container} testID="item">
+        <View style={styles.header}>
+          <Image
+            style={styles.avatar}
+            source={{ uri: item.ownerAvatarUrl }}
+          />
+          <View style={styles.headerTexts}>
+            <Text style={styles.headerTextItem} fontWeight="bold">{item.fullName}</Text>
+            <Text style={styles.headerTextItem}>{item.description}</Text>
+            <View style={styles.languageItemParent}>
+              <Text style={styles.language}>{item.language}</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.footerItem}>
+          <View>
+            <Text style={styles.boldCenter}>{stargazersCount}</Text>
+            <Text>Stars</Text>
+          </View>
+          <View>
+            <Text style={styles.boldCenter}>{forksCount}</Text>
+            <Text>Forks</Text>
+          </View>
+          <View>
+            <Text style={styles.boldCenter}>{item.reviewCount}</Text>
+            <Text>Reviews</Text>
+          </View>
+          <View>
+            <Text style={styles.boldCenter}>{item.ratingAverage}</Text>
+            <Text>Rating</Text>
           </View>
         </View>
       </View>
-      <View style={styles.footerItem}>
-        <View>
-          <Text style={styles.boldCenter}>{stargazersCount}</Text>
-          <Text>Stars</Text>
-        </View>
-        <View>
-          <Text style={styles.boldCenter}>{forksCount}</Text>
-          <Text>Forks</Text>
-        </View>
-        <View>
-          <Text style={styles.boldCenter}>{item.reviewCount}</Text>
-          <Text>Review</Text>
-        </View>
-        <View>
-          <Text style={styles.boldCenter}>{item.ratingAverage}</Text>
-          <Text>Rating</Text>
-        </View>
-      </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -64,9 +72,10 @@ const styles = StyleSheet.create({
   },
   headerTexts: {
     flexDirection: 'column',
+    flex: 1
   },
   headerTextItem: {
-    paddingBottom: 4
+    paddingBottom: 4,
   },
   languageItemParent: {
     flexDirection: 'row'
